@@ -1,0 +1,44 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="stmarkdown.css">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<h1><a href="#distribution-of-a-simulated-dataset" id="distribution-of-a-simulated-dataset">Distribution of a simulated dataset</a></h1>
+<h3><a href="#jiahuan-helen-he-bs" id="jiahuan-helen-he-bs">Jiahuan Helen He, BS</a></h3>
+<p><strong>Background:</strong> Distribution of a simulated dataset</p>
+<p><strong>Methods:</strong> The results are based on simulated data</p>
+<pre><code>.         clear all
+
+.         
+.         * Initialize dataset with 30 observations
+.         set obs 30
+
+.                 
+.         * Create an age variable with a mean of 57 years and a standard deviation of 15
+.         capture drop age age_t
+
+.         gen age = (rnormal() * 15) + 57 //Uses normal distribution
+
+.         gen age_t=(rt(_N)*15)+57 //Uses t_distribution
+
+.         
+.         * Plot a histogram of the age variables from both rnormal() and rt(), and overlay it with
+&gt;  a theoretical normal distribution curve. 
+.         hist age, ///
+&gt;                   fcolor(orange%40) /// simulated normal 
+&gt;                   addplot(hist age_t, fcolor(midblue%50)) /// simulated t-distribution 
+&gt;                   normal /// theoretical normal
+&gt;                   legend(on ///
+&gt;                          lab(1 &quot;Sampled from Normal&quot;) ///
+&gt;                          lab(2 &quot;Theoretical Normal&quot;) ///
+&gt;                          lab(3 &quot;Sampled from t-distribution&quot;) ///
+&gt;                         )
+
+.         graph export hw4_hist.png, replace 
+
+</code></pre>
+<p><img src="Graph.svg" > The distribution of the data follows a normal distribution: $$\text{Age, years} \sim \mathcal{N}(\mu=57,,\sigma^{2}=225)$$</p>
